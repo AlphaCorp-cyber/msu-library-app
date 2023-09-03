@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "240679996887",
+    "project_id": "msu-library-app-391008",
+    "storage_bucket": "msu-library-app-391008.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240679996887:android:fd769b6cdb97a0579dcf92",
+        "android_client_info": {
+          "package_name": "com.msu.myLibrary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240679996887-hq72h3410q3fec0g6q4ou3v4kk5a8t1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.msu.myLibrary",
+            "certificate_hash": "9600b0bce48da94b78d9d555cf12151905570e63"
+          }
+        },
+        {
+          "client_id": "240679996887-ev3nm9omtfl5g33mt58t8kpvr3i6d7um.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8CvGLHA3hhecUwZoLq4gd08-Lh2PXJxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240679996887-ev3nm9omtfl5g33mt58t8kpvr3i6d7um.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "240679996887-47i6tn7ugs1otvc8miuqlfe4ktrbrstp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.msu.mylibrary.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
