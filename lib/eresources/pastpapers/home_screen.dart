@@ -276,7 +276,7 @@ List<PastExam> _filterSearchResults(String query) {
       _selectedIconIndex = index; // Set the selected index
     });
     _downloadFile(
-      "https://app.library.msu.ac.zw/api/get-file/${exams.id}",
+      "https://app.library.msu.ac.zw/api/download-past-exam-paper/${exams.id}",
       '${exams.name}',
     );
   },

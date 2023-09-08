@@ -6,11 +6,13 @@ class Judgement {
   //final int courtid;
   final String title;
   final String introduction;
+  final String fileName;
 
   Judgement(
       {required this.id,
       //required this.courtid,
       required this.title,
+      required this.fileName,
       required this.introduction});
 }
 
@@ -31,7 +33,7 @@ class JudgementService {
           .map<Judgement>((e) => Judgement(
               id: 1,
               title: e['title'],
-              
+              fileName: e['file_name'],
               introduction: e['introduction']))
           .toList();
       return list;

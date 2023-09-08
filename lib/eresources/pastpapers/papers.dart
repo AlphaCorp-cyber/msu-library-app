@@ -361,7 +361,7 @@ class _SearchPageState extends State<SearchPage> {
                             setState(() {
                             });
                             _downloadFile(
-                              "https://app.library.msu.ac.zw/api/get-file/$id",
+                              "https://app.library.msu.ac.zw/api/download-past-exam-paper/$id",
                               name,
                               index,
                             );_showProcessSnackbar('Downloading........');
