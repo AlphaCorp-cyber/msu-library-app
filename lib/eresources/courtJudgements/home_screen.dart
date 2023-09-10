@@ -170,7 +170,7 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
     });
     try {
       final response = await http.get(Uri.parse(
-          'https://app.library.msu.ac.zw/api/judgement/search/$query'));
+          'https://app.library.msu.ac.zw/api/past-exam/search/$query'));
       if (response.statusCode == 200) {
         final String responseBody = response.body;
         final dynamic decodedData = json.decode(responseBody);
@@ -222,7 +222,7 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          "COART JUDGEMENTS",
+          "PAST PAPERS",
           style: TextStyle(
               fontWeight: FontWeight.w900, color: Colors.white, fontSize: 17),
         ),
@@ -255,7 +255,7 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
                           },
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(left: 8),
-                            hintText: "Search for court judgements",
+                            hintText: "Search for past papers",
                             hintStyle: TextStyle(fontSize: 15),
                             border: InputBorder.none,
                           ),
@@ -335,44 +335,45 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
           final item = searchData[index];
           final dataList = item['data'];
           return Column(
-             children: dataList.map<Widget>((data) {
-                    // ignore: unused_local_variable
-                    final title = data['title'] ?? '';
-                    final desc = data['introduction'] ?? '';
+            children: dataList.map<Widget>((data) {
+              final fileName =
+                  removeTextAfterFirstUnderscore(data['file_name'] ?? '');
+              final month = data['month'] ?? '';
+              final year = data['yr'] ?? '';
+              final id = data['id'] ?? '';
+              final name = data['file_name'] ?? '';
 
               return Column(
                 children: [
                   ListTile(
-                      contentPadding: EdgeInsets.only(top: 10, left: 16),
-                          title: Text(
-                            title ,maxLines: 2,
-  overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: const Color.fromRGBO(5, 89, 109, 1)),
-                          ),
-                          subtitle: Text(desc,maxLines: 2,
-  overflow: TextOverflow.ellipsis,),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
+                    contentPadding: EdgeInsets.only(top: 10, left: 16),
+                    title: Text(
+                      'Module Code : ' + fileName,
+                      style: TextStyle(
+                          color: const Color.fromRGBO(5, 89, 109, 1)),
+                    ),
+                    subtitle: Text('Written in ' + month + ' ' + year),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
                           onPressed: () {
                             setState(() {
                             });
                             _downloadFile(
-                               'https://www.tutorialspoint.com/java/java_tutorial.pdf',
-                                      'cs.pdf',
+                              "https://app.library.msu.ac.zw/api/download-judgements/$fileName",
+                              name,
                               index,
                             );_showProcessSnackbar('Downloading........');
                           },
                           icon: Stack(
                             alignment: Alignment.center,
                             children: [
-                              // Icon(
-                              //   Icons.download,
-                              //   color:
-                              //       const Color.fromRGBO(5, 89, 109, 1),
-                              // ),
+                              Icon(
+                                Icons.download,
+                                color:
+                                    const Color.fromRGBO(5, 89, 109, 1),
+                              ),
                             ],
                           ),
                         ),
