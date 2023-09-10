@@ -255,7 +255,7 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
                           },
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(left: 8),
-                            hintText: "Search for past papers",
+                            hintText: "Search for past court Judgements",
                             hintStyle: TextStyle(fontSize: 15),
                             border: InputBorder.none,
                           ),
