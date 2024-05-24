@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: InAppWebView(
               initialUrlRequest: URLRequest(
-                url: Uri.parse('https://msulibrary.000webhostapp.com/'),
+                url: Uri.parse('https://libraries.msu.ac.zw/blog/category/news/'),
               ),
               initialOptions: InAppWebViewGroupOptions(
                 crossPlatform: InAppWebViewOptions(

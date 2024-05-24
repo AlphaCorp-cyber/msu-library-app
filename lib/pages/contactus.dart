@@ -21,9 +21,15 @@ class _ContactState extends State<Contact> {
         backgroundColor: const Color.fromRGBO(5, 89, 109, 1),
         elevation: 1,
         centerTitle: false,
-        title: const Text(
-          'Contact',
-          textAlign: TextAlign.left,
+        title: Center(
+          child: const Text(
+            'Contact',
+            style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.left,
+          ),
+        ),
+            iconTheme: IconThemeData(
+          color: Colors.white, // This changes the drawer icon to white
         ),
       ),
       

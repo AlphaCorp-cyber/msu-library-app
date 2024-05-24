@@ -163,48 +163,67 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
       });
     }
   }
+Future<void> fetchData(String query) async {
+  setState(() {
+    isLoading = true;
+  });
+  try {
+    // Mapping court code to ID
+    final courtCodeToId = {
+      'CHC': 10,
+      'LB': 9,
+      'HCM': 8,
+      'HCB': 7,
+      'GHC': 6,
+      'BHC': 5,
+      'MHC': 4,
+      'HHC': 3,
+      'SC': 2,
+      'CCZ': 1,
+    };
 
-  Future<void> fetchData(String query) async {
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      final response = await http.get(Uri.parse(
-          'https://app.library.msu.ac.zw/api/past-exam/search/$query'));
-      if (response.statusCode == 200) {
-        final String responseBody = response.body;
-        final dynamic decodedData = json.decode(responseBody);
-
-        if (decodedData is List<dynamic>) {
-          setState(() {
-            decodedData.sort((a, b) => a
-                .toString()
-                .toLowerCase()
-                .compareTo(b.toString().toLowerCase()));
-            searchData = decodedData;
-            print(searchData);
-          });
-        } else if (decodedData is Map<String, dynamic>) {
-          setState(() {
-            searchData = [decodedData];
-            print(searchData);
-          });
-        } else {
-          print('Invalid data format');
-        }
-      } else {
-        _showErrorSnackbar('Error fetching data');
-        print('Error fetching data: ${response.statusCode}');
-      }
-    } catch (error) {
-      _showErrorSnackbar('Network Error ');
-      print('Error fetching data: $error');
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
+    // Check if the query is a court code
+    if (courtCodeToId.containsKey(query)) {
+      query = courtCodeToId[query].toString();
     }
+
+    final response = await http.get(Uri.parse(
+        'https://app.library.msu.ac.zw/api/judgement/search/$query'));
+    if (response.statusCode == 200) {
+      final String responseBody = response.body;
+      final dynamic decodedData = json.decode(responseBody);
+
+      if (decodedData is List<dynamic>) {
+        setState(() {
+          decodedData.sort((a, b) => a
+              .toString()
+              .toLowerCase()
+              .compareTo(b.toString().toLowerCase()));
+          searchData = decodedData;
+          print(searchData);
+        });
+      } else if (decodedData is Map<String, dynamic>) {
+        setState(() {
+          searchData = [decodedData];
+          print(searchData);
+        });
+      } else {
+        print('Invalid data format');
+      }
+    } else {
+      _showErrorSnackbar('Error fetching data');
+      print('Error fetching data: ${response.statusCode}');
+    }
+  } catch (error) {
+    _showErrorSnackbar('Network Error ');
+    print('Error fetching data: $error');
+  } finally {
+    setState(() {
+      isLoading = false;
+    });
   }
+}
+
 
   String removeTextAfterFirstUnderscore(String input) {
     final underscoreIndex = input.indexOf('_');
@@ -222,9 +241,12 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          "PAST PAPERS",
+          "Court Judgements",
           style: TextStyle(
               fontWeight: FontWeight.w900, color: Colors.white, fontSize: 17),
+        ),
+            iconTheme: IconThemeData(
+          color: Colors.white, // This changes the drawer icon to white
         ),
         actions: <Widget>[],
         bottom: PreferredSize(
@@ -292,38 +314,38 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
           ),
         ),
       ),
-      floatingActionButton: ExpandableFab(distance: 120, children: [
-        ActionButton(
-          icon: const Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: ((context) => const FitnessAppHomeScreen())));
-          },
-        ),
-        ActionButton(
-          icon: const Icon(
-            Icons.file_download_sharp,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: ((context) => Downloads())));
-          },
-        ),
-        ActionButton(
-          icon: const Icon(
-            Icons.rss_feed,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: ((context) =>  HomeScreen())));
-          },
-        ),
-      ]),
+      // floatingActionButton: ExpandableFab(distance: 120, children: [
+      //   ActionButton(
+      //     icon: const Icon(
+      //       Icons.home,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.of(context).push(MaterialPageRoute(
+      //           builder: ((context) => const FitnessAppHomeScreen())));
+      //     },
+      //   ),
+      //   ActionButton(
+      //     icon: const Icon(
+      //       Icons.file_download_sharp,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.of(context)
+      //           .push(MaterialPageRoute(builder: ((context) => Downloads())));
+      //     },
+      //   ),
+      //   ActionButton(
+      //     icon: const Icon(
+      //       Icons.rss_feed,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.of(context).push(
+      //           MaterialPageRoute(builder: ((context) =>  HomeScreen())));
+      //     },
+      //   ),
+      // ]),
       
      body: Column(
   children: [
@@ -338,6 +360,8 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
             children: dataList.map<Widget>((data) {
               final fileName =
                   removeTextAfterFirstUnderscore(data['file_name'] ?? '');
+              final casecode = data['casecode'] ?? '';
+              final intro = data['introduction'] ?? '';
               final month = data['month'] ?? '';
               final year = data['yr'] ?? '';
               final id = data['id'] ?? '';
@@ -348,11 +372,12 @@ class _HomeScreenCourtState extends State<HomeScreenCourt> {
                   ListTile(
                     contentPadding: EdgeInsets.only(top: 10, left: 16),
                     title: Text(
-                      'Module Code : ' + fileName,
+                      'Case Code : ' + casecode,
                       style: TextStyle(
                           color: const Color.fromRGBO(5, 89, 109, 1)),
                     ),
-                    subtitle: Text('Written in ' + month + ' ' + year),
+                    subtitle: Text(intro,maxLines: 4,
+  overflow: TextOverflow.ellipsis, ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

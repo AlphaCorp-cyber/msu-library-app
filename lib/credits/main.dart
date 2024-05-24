@@ -40,8 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Credits')),
+        title: const Center(child: Text('Credits'
+        ,style: TextStyle(color: Colors.white),)),
         backgroundColor: const Color.fromRGBO(5, 89, 109, 1),
+             iconTheme: IconThemeData(
+          color: Colors.white, // This changes the drawer icon to white
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

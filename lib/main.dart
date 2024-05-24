@@ -7,12 +7,17 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'nerdai/helper/pref.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
 final _themedata = GetStorage();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+   await Pref.initialize();
+   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+   await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   // Enable debug logging for the google_sign_in package
   SystemChannels.platform.setMethodCallHandler((MethodCall call) async {
     if (call.method == 'Invocation.method') {

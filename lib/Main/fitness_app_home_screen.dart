@@ -5,7 +5,8 @@ import 'package:dashboard/Main/models/tabIcon_data.dart';
 import 'package:dashboard/Main/my_diary_screen.dart';
 import 'package:dashboard/Screens/home_screen.dart';
 import 'package:dashboard/auth/pages/login_page.dart';
-import 'package:dashboard/borrowing/maintanace.dart';
+
+import 'package:dashboard/nerdai/screen/home_screen.dart';
 import 'package:dashboard/themes/fitness_app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -89,8 +90,12 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
           centerTitle: false,
           title: const Text(
             'myLibrary',
+            style: TextStyle(color: Colors.white),
             textAlign: TextAlign.left,
           ),
+           iconTheme: IconThemeData(
+          color: Colors.white, // This changes the drawer icon to white
+        ),
           actions: [
             IconButton(
               icon: const Icon(
@@ -121,6 +126,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
             IconButton(
               icon: Icon(
                 Icons.info_outline,
+                color: Colors.white,
               ),
               onPressed: () {
                 Navigator.of(context).push(
@@ -181,7 +187,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = Maintanace();
+                  tabBody = HomeScreenChat();
                 });
               });
             } else if (index == 2) {

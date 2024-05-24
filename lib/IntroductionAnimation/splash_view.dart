@@ -30,9 +30,9 @@ class _SplashViewState extends State<SplashView> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            
+             SizedBox(height: 200,),
             SizedBox(
-              height: 600, // set the desired height of the image
+              height: 200, // set the desired height of the image
               child: Image.asset(
                 'assets/introduction_animation/logo.jpg',
                 width: MediaQuery.of(context)
@@ -42,6 +42,7 @@ class _SplashViewState extends State<SplashView> {
                     .contain, // set the fit property to BoxFit.contain to scale the image while maintaining its aspect ratio
               ),
             ),
+            SizedBox(height: 100,),
             const Padding(
               padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Text(

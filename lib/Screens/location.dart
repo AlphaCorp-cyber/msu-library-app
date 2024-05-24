@@ -78,10 +78,16 @@ class _LocationState extends State<Location> {
           backgroundColor: const Color.fromRGBO(5, 89, 109, 1),
           elevation: 1,
           centerTitle: false,
-          title: const Text(
-            'myLibrary',
-            textAlign: TextAlign.left,
+          title: Center(
+            child: const Text(
+              'myLibrary',
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.left,
+            ),
           ),
+              iconTheme: IconThemeData(
+          color: Colors.white, // This changes the drawer icon to white
+        ),
         ),
           body: SafeArea(
               child: Column(children: <Widget>[

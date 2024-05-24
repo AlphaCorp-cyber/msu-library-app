@@ -1,106 +1,47 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:share/share.dart';
 
+class DocumentViewerPage extends StatelessWidget {
+  final String filePath;
 
-class PDFViewerPage extends StatefulWidget {
-  final String? path;
-
-  PDFViewerPage({Key? key, this.path}) : super(key: key);
-
-  @override
-  _PDFViewerPageState createState() => _PDFViewerPageState();
-}
-
-class _PDFViewerPageState extends State<PDFViewerPage>
-    with WidgetsBindingObserver {
-  final Completer<PDFViewController> _controller =
-      Completer<PDFViewController>();
-  int? pages = 0;
-  int? currentPage = 0;
-  bool isReady = false;
-  String errorMessage = '';
+  DocumentViewerPage({required this.filePath});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(5, 89, 109, 1),
-        title: Text("Document"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {
-              if (widget.path != null) {
-                Share.shareFiles([widget.path!]);
-              }
-            },
-          ),
-        ],
+        title: Text('Document Viewer'),
       ),
-      
-      body: Stack(
-        children: <Widget>[
-          PDFView(
-            filePath: widget.path,
-            enableSwipe: true,
-            swipeHorizontal: false,
-            autoSpacing: false,
-            pageFling: true,
-            pageSnap: true,
-            defaultPage: currentPage!,
-            fitPolicy: FitPolicy.BOTH,
-            preventLinkNavigation: false,
-            onRender: (_pages) {
-              setState(() {
-                pages = _pages;
-                isReady = true;
-              });
-            },
-            onError: (error) {
-              setState(() {
-                errorMessage = error.toString();
-              });
-              print(error.toString());
-            },
-            onPageError: (page, error) {
-              setState(() {
-                errorMessage = '$page: ${error.toString()}';
-              });
-              print('$page: ${error.toString()}');
-            },
-            onViewCreated: (PDFViewController pdfViewController) {
-              _controller.complete(pdfViewController);
-            },
-            onLinkHandler: (String? uri) {
-              print('goto uri: $uri');
-            },
-            onPageChanged: (int? page, int? total) {
-              print('page change: $page/$total');
-              setState(() {
-                currentPage = page;
-              });
-            },
-          ),
-          errorMessage.isEmpty
-              ? !isReady
-                  ? Center(
-                      child: SpinKitCubeGrid(
-  color: Color.fromRGBO(5, 89, 109, 1),
-  
-  size: 50.0,
-  
-),
-                    )
-                  : Container()
-              : Center(
-                  child: Text(errorMessage),
-                )
-        ],
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () => _openFile(filePath),
+          child: Text('Open Document'),
+        ),
       ),
     );
+  }
+
+  void _openFile(String filePath) {
+    if (filePath.isNotEmpty) {
+      if (filePath.toLowerCase().endsWith('.pdf')) {
+        // Open PDF document
+        _openPdf(filePath);
+      } else if (filePath.toLowerCase().endsWith('.docx')) {
+        // Open Word document
+        _openWord(filePath);
+      } else {
+        // Unsupported file type
+        print('Unsupported file type.');
+      }
+    }
+  }
+
+  void _openPdf(String filePath) {
+    // Code to open PDF document
+    print('Opening PDF document: $filePath');
+  }
+
+  void _openWord(String filePath) {
+    // Code to open Word document
+    print('Opening Word document: $filePath');
   }
 }

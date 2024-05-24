@@ -70,17 +70,18 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                
                 children: [
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 150),
 
                   // logo
                   Lottie.asset('assets/lg.json', width: 300, height: 300),
 
                   const SizedBox(height: 50),
 
-                  // welcome back, you've been missed!
+              
 
-                  const SizedBox(height: 25),
+                  
 
                   // username textfield
 
@@ -112,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
 
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 120),
 
                   // google + apple sign in buttons
                   Row(

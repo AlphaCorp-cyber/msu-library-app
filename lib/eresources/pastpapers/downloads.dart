@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dashboard/eresources/pastpapers/pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Downloads extends StatefulWidget {
@@ -14,9 +14,7 @@ class Downloads extends StatefulWidget {
 class _DownloadsState extends State<Downloads> {
   Future<List<FileSystemEntity>> getDownloadedFiles() async {
     final appDocumentsDirectory = await getExternalStorageDirectory();
-    
-    final downloadsDirectory =
-        Directory('${appDocumentsDirectory?.path}/Download');
+    final downloadsDirectory = Directory('${appDocumentsDirectory?.path}/Download');
     if (downloadsDirectory.existsSync()) {
       List<FileSystemEntity> files = downloadsDirectory.listSync();
       return files;
@@ -33,8 +31,8 @@ class _DownloadsState extends State<Downloads> {
       desktopSnackBarPosition: DesktopSnackBarPosition.topRight,
     ).show(context);
   }
-  
- void _showErrorSnackbar(String message) {
+
+  void _showErrorSnackbar(String message) {
     AnimatedSnackBar.material(
       '$message',
       type: AnimatedSnackBarType.error,
@@ -73,10 +71,9 @@ class _DownloadsState extends State<Downloads> {
           ),
         ],
       ),
-    )) ??
-        false;
+    )) ?? false;
   }
-  
+
   Future<void> _deleteFile(FileSystemEntity file) async {
     try {
       await file.delete();
@@ -89,6 +86,18 @@ class _DownloadsState extends State<Downloads> {
       _showErrorSnackbar('Failed to delete file: ');
     }
   }
+
+ void _onViewFile(FileSystemEntity file) async {
+  String filePath = file.path;
+  OpenResult result = await OpenFile.open(filePath);
+
+  if (result.type == ResultType.done) {
+    // File successfully opened
+  } else {
+    _showErrorSnackbar('There is no app to open the document');
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -159,15 +168,7 @@ class _DownloadsState extends State<Downloads> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        PDFViewerPage(path: file.path),
-                                  ),
-                                );
-                              },
+                              onPressed: () => _onViewFile(file),
                               icon: const Icon(
                                 Icons.remove_red_eye,
                                 color: const Color.fromRGBO(5, 89, 109, 1),
@@ -177,7 +178,7 @@ class _DownloadsState extends State<Downloads> {
                               onPressed: () => _deleteFile(file),
                               icon: const Icon(
                                 Icons.delete,
-                                color: const Color.fromRGBO(5, 89,109, 1),
+                                color: const Color.fromRGBO(5, 89, 109, 1),
                               ),
                             ),
                           ],

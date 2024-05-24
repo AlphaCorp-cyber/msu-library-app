@@ -206,6 +206,9 @@ class _HomeScreenEbooksState extends State<HomeScreenEbooks> {
           style: TextStyle(
               fontWeight: FontWeight.w900, color: Colors.white, fontSize: 17),
         ),
+            iconTheme: IconThemeData(
+          color: Colors.white, // This changes the drawer icon to white
+        ),
         actions: <Widget>[],
         bottom: PreferredSize(
           preferredSize: const Size(3, 130),
@@ -268,38 +271,38 @@ class _HomeScreenEbooksState extends State<HomeScreenEbooks> {
           ),
         ),
       ),
-      floatingActionButton: ExpandableFab(distance: 120, children: [
-        ActionButton(
-          icon: const Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: ((context) => const FitnessAppHomeScreen())));
-          },
-        ),
-        ActionButton(
-          icon: const Icon(
-            Icons.file_download_sharp,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: ((context) => Downloads())));
-          },
-        ),
-        ActionButton(
-          icon: const Icon(
-            Icons.rss_feed,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: ((context) => HomeScreen())));
-          },
-        ),
-      ]),
+      // floatingActionButton: ExpandableFab(distance: 120, children: [
+      //   ActionButton(
+      //     icon: const Icon(
+      //       Icons.home,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.of(context).push(MaterialPageRoute(
+      //           builder: ((context) => const FitnessAppHomeScreen())));
+      //     },
+      //   ),
+      //   ActionButton(
+      //     icon: const Icon(
+      //       Icons.file_download_sharp,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.of(context)
+      //           .push(MaterialPageRoute(builder: ((context) => Downloads())));
+      //     },
+      //   ),
+      //   ActionButton(
+      //     icon: const Icon(
+      //       Icons.rss_feed,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.of(context).push(
+      //           MaterialPageRoute(builder: ((context) => HomeScreen())));
+      //     },
+      //   ),
+      // ]),
       body: Column(
         
         children: [

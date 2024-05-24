@@ -13,5 +13,7 @@ class Initial extends StatelessWidget {
         body: FirebaseAuth.instance.currentUser == null
             ? IntroductionAnimationScreen()
             : FitnessAppHomeScreen());
+
+            // IntroductionAnimationScreen()
   }
 }
