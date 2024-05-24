@@ -42,7 +42,7 @@ class APIs {
       return '$e Something went wrong (Try again in sometime)';
     }
   }
-
+ 
   static Future<List<String>> searchAiImages(String prompt) async {
     try {
       final res =

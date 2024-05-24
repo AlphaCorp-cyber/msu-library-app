@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+ 
 extension AppTheme on ThemeData {
   //light text color
   Color get lightTextColor =>
