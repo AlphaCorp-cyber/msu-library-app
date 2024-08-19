@@ -3,16 +3,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:dashboard/eresources/pastpapers/downloads.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
-import '../../IntroductionAnimation/action_button.dart';
-import '../../Main/expandable_fab.dart';
-import '../../Main/fitness_app_home_screen.dart';
-import '../../Screens/home_screen.dart';
 
 class SearchPage extends StatefulWidget {
   @override

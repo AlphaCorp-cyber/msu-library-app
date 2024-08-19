@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, deprecated_member_use
 import 'package:dashboard/Main/ui_view/body_measurement.dart';
 import 'package:dashboard/Main/ui_view/glass_view.dart';
 import 'package:dashboard/Main/ui_view/meals_list_view.dart';

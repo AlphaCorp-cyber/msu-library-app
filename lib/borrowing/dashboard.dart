@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, unused_local_variable
+// ignore_for_file: unnecessary_null_comparison, unused_local_variable, deprecated_member_use
 
 import 'package:dashboard/Main/ui_view/mediterranean_diet_view.dart';
 import 'package:dashboard/borrowing/OverDue.dart';
